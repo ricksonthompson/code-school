@@ -1,10 +1,10 @@
 {
-  "type": "mysql",
+  "type": "postgres",
   "host": "localhost",
-  "port": 3306,
-  "username": "root",
-  "password": "",
-  "database": "db_codeschool",
+  "port": 5432,
+  "username": "postgres",
+  "password": "docker",
+  "database": "code_school",
   "entities": [
     "./src/models/*.ts"
   ],

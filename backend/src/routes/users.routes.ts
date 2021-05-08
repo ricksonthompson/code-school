@@ -1,14 +1,15 @@
 import { Router } from 'express';
-import {getCustomRepository} from 'typeorm';
+import {getRepository} from 'typeorm';
 
 import CreateUserService from '../services/CreateUserService';
-import UserRepository from '../repositories/UsersRepository';
+import User from '../models/User';
+import DeleteUserService from '../services/DeleteUserService';
 
 const usersRouter = Router();
 
 
 usersRouter.get('/', async (request, response) => {
-  const userRepository = getCustomRepository(UserRepository);
+  const userRepository = getRepository(User);
 
   const users = await userRepository.find();
 
@@ -33,6 +34,16 @@ usersRouter.post('/', async (request, response) => {
   } catch (err) {
     return response.status(400).json({ error: err.message });
   }
+});
+
+usersRouter.delete('/:id', async (request, response) => {
+  const { id } = request.params;
+
+  const deleteUser = new DeleteUserService();
+
+  await deleteUser.execute(id);
+
+  return response.status(204).send();
 });
 
 export default usersRouter;

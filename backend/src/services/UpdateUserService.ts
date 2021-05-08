@@ -12,17 +12,6 @@ interface IRequest {
   old_password?: string;
 }
 
-// ✅ 1. Definir params que vou receber
-// ✅ 2. Validar se user existe
-// ✅ 3. Vou atribuir os params ao campos que quero atualizar
-// ✅ 4. Fazer as validações que eu quero
-// 5. Email:
-//   ✅ Verificar se a velha e a nova estão presentes
-//   ✅ verificar se as duas senhas
-//   "✅ Update user"
-//   - gerar um hash pra nova senha
-//   - Salvar user
-
 class UpdateUserService {
   public async execute({user_id, name, email, password, old_password}: IRequest): Promise<User | void> {
     const usersRepository = await getRepository(User);
@@ -35,6 +24,14 @@ class UpdateUserService {
 
     user.name = name;
     user.email = email;
+
+    const checkUserExists = await usersRepository.findOne({
+      where: { email },
+    });
+
+    if (checkUserExists) {
+      throw new AppError('Email address already used.');
+    }
 
     if(password && !old_password) {
       throw new AppError('You need to inform old password to set a new password.')

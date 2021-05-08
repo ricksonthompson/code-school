@@ -4,6 +4,8 @@ import {getRepository} from 'typeorm';
 import CreateUserService from '../services/CreateUserService';
 import User from '../models/User';
 import DeleteUserService from '../services/DeleteUserService';
+import UpdateProfile from '../services/UpdateUserService';
+import UpdateUserService from '../services/UpdateUserService';
 
 const usersRouter = Router();
 
@@ -34,6 +36,23 @@ usersRouter.post('/', async (request, response) => {
   } catch (err) {
     return response.status(400).json({ error: err.message });
   }
+});
+
+usersRouter.put('/', async (request, response) => {
+  const { id, name, email, password, old_password } = request.body;
+
+  const updateUser = new UpdateUserService();
+
+  const user = await updateUser.execute({
+    user_id: id,
+    name,
+    email,
+    password,
+    old_password,
+  });
+
+  return response.json(user);
+
 });
 
 usersRouter.delete('/:id', async (request, response) => {

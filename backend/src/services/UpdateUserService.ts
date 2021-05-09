@@ -5,7 +5,7 @@ import AppError from '../errors/AppError';
 import User from '../models/User';
 
 interface IRequest {
-  user_id: number;
+  user_id: string;
   name: string;
   email: string;
   password?: string;

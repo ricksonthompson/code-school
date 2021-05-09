@@ -1,12 +1,6 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
-@Entity('classes')
+@Entity('modules')
 class Class {
   @PrimaryGeneratedColumn('increment')
   id: number;
@@ -17,12 +11,6 @@ class Class {
   @Column()
   description: string;
 
-  @Column()
-  link: string;
-
-  @Column()
-  id_module: string;
-
   @CreateDateColumn()
   created_at: Date;
 
@@ -31,3 +19,4 @@ class Class {
 }
 
 export default Class;
+

@@ -22,11 +22,16 @@ export class CreateClass1620531501047 implements MigrationInterface {
             {
               name: 'description',
               type: 'varchar',
+            },
+            {
+              name: 'link',
+              type: 'varchar',
               isNullable: true,
             },
             {
-              name: 'thumbnail',
+              name: 'id_module',
               type: 'varchar',
+              isNullable: true,
             },
             {
               name: 'created_at',

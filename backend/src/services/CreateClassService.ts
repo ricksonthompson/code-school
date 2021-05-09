@@ -5,17 +5,19 @@ import Class from '../models/Class';
 interface IRequest {
   title: string;
   description: string;
-  thumbnail?: string;
+  id_module: string;
+  link: string;
 }
 
 class CreateClassService {
-  public async execute({title, description, thumbnail} :IRequest) :Promise<Class> {
+  public async execute({title, description, id_module, link} :IRequest) :Promise<Class> {
     const classRepository = getRepository(Class);
 
     const classVideo = await classRepository.create({
       title,
       description,
-      thumbnail,
+      id_module,
+      link
     })
 
     await classRepository.save(classVideo);

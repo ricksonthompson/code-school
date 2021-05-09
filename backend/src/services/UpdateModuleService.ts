@@ -12,7 +12,7 @@ interface IRequest {
 
 class UpdateModuleService {
   public async execute({ id, title, description }: IRequest): Promise<Module | void> {
-    const modulesRepository = await getRepository(Module);
+    const modulesRepository = getRepository(Module);
 
     const module = await modulesRepository.findOne(id)
 

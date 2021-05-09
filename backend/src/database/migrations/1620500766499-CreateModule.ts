@@ -1,4 +1,4 @@
-import {MigrationInterface, QueryRunner} from "typeorm";
+import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
 export class CreateModule1620500766499 implements MigrationInterface {
 

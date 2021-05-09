@@ -23,7 +23,6 @@ Observações:
 # Module
 - Id
 - Name
-- Classes
 - Created
 - Updated
 

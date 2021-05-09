@@ -1,7 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany
+} from 'typeorm';
+
+import Lesson from './Lesson';
 
 @Entity('modules')
-class Class {
+class Module {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
@@ -11,6 +20,9 @@ class Class {
   @Column()
   description: string;
 
+  @OneToMany(() => Lesson, lesson => lesson.module)
+  lesson: Lesson;
+
   @CreateDateColumn()
   created_at: Date;
 
@@ -18,5 +30,4 @@ class Class {
   updated_at: Date;
 }
 
-export default Class;
-
+export default Module;

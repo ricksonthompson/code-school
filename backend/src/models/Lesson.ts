@@ -2,13 +2,17 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('classes')
-class Class {
-  @PrimaryGeneratedColumn('increment')
+import Module from './Module';
+
+@Entity('lessons')
+class Lesson {
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @Column()
@@ -20,8 +24,12 @@ class Class {
   @Column()
   link: string;
 
+  @ManyToOne(() => Module, module => module.lesson, { eager: true })
+  @JoinColumn({ name: 'module_id' })
+  module: Module;
+
   @Column()
-  id_module: string;
+  module_id: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -30,4 +38,4 @@ class Class {
   updated_at: Date;
 }
 
-export default Class;
+export default Lesson;

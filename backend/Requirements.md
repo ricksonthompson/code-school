@@ -4,7 +4,7 @@
 Você deve criar uma API que deve atender os seguintes requisitos:
 
 - [x] Criar, Listar, Deletar, Atualizar um usuário.
-- [] Fazer Login e Logout.
+- [X] Fazer Login e Logout.
 - [] Criar, Listar, Deletar, Atualizar um módulo.
 - [] Criar, Listar, Deletar, Atualizar um aula (uma aula pertence a um módulo).
 
@@ -20,16 +20,3 @@ Observações:
 - [] Tela de de módulos
 - [] Tela de aula com videoplayer (utilizar o YouTube, Vimeo, ou outro).
 
-# Module
-- Id
-- Name
-- Created
-- Updated
-
-# Class
-- Id
-- Title
-- Description
-- id_module
-- created
-- link

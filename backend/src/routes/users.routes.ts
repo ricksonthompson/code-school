@@ -4,7 +4,6 @@ import {getRepository} from 'typeorm';
 import CreateUserService from '../services/CreateUserService';
 import User from '../models/User';
 import DeleteUserService from '../services/DeleteUserService';
-import UpdateProfile from '../services/UpdateUserService';
 import UpdateUserService from '../services/UpdateUserService';
 
 const usersRouter = Router();

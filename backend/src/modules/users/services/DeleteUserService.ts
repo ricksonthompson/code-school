@@ -1,19 +1,27 @@
-import { getRepository } from 'typeorm';
-import AppError from '../errors/AppError';
+import { inject, injectable } from 'tsyringe';
 
-import User from '../models/User';
+import AppError from '@shared/errors/AppError';
 
+import IUsersRepository from '../repositories/IUsersRepository';
+
+@injectable()
 class DeleteUserService {
-  public async execute(id: string) :Promise<void> {
-    const UsersRepository = await getRepository(User);
 
-    const user = await UsersRepository.findOne(id);
+  constructor(
+    @inject('UserRepository')
+      private usersRepository: IUsersRepository,
+    ) {}
+
+    public async execute(id: string) :Promise<void> {
+
+
+    const user = await this.usersRepository.findById(id);
 
     if (!user) {
       throw new AppError('User does not exists!');
     }
 
-    await UsersRepository.remove(user);
+    await this.usersRepository.remove(user);
   }
 }
 

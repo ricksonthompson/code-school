@@ -53,6 +53,11 @@ class UsersRepository implements IUsersRepository {
     return user;
   }
 
+  public async remove(user: User): Promise<User | undefined> {
+
+    return await this.ormRepository.remove(user);
+  }
+
   public async save(user: User): Promise<User> {
     return this.ormRepository.save(user);
   }

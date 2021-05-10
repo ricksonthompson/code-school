@@ -20,6 +20,7 @@
   ],
   "rules": {
     "no-underscore-dangle": "off",
+    "no-useless-constructor": "off",
     "prettier/prettier": "error",
     "class-methods-use-this": "off",
     "@typescript-eslint/camelcase": "on",

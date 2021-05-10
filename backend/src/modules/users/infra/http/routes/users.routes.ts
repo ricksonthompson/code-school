@@ -1,49 +1,27 @@
 import { Router } from 'express';
-import { getRepository } from 'typeorm';
 
-import User from '@modules/users/infra/typeorm/entities/User';
-import CreateUserService from '@modules/users/services/CreateUserService';
 import UpdateUserService from '@modules/users/services/UpdateUserService';
 import DeleteUserService from '@modules/users/services/UpdateUserService';
+import UsersRepository from '../../typeorm/repositories/UsersRepository';
+
+import UsersController from '../controllers/UsersController';
 
 const usersRouter = Router();
+const usersController = new UsersController;
 
+// usersRouter.get('/', async (request, response) => {
+//   const usersRepository = new UsersRepository();
 
-usersRouter.get('/', async (request, response) => {
-  const userRepository = getRepository(User);
+//   const users = await userRepository.find();
 
-  const users = await userRepository.find();
+//   return response.json(users);
+// })
 
-  return response.json(users);
-})
-
-usersRouter.post('/', async (request, response) => {
-  try {
-    const { name, email, password } = request.body;
-
-    const CreateUser = new CreateUserService();
-
-    const user = await CreateUser.execute({
-      name,
-      email,
-      password,
-    });
-
-    const userWithoutPassword = {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      created_at: user.created_at,
-      updated_at: user.updated_at,
-    };
-
-    return response.json(userWithoutPassword);
-  } catch (err) {
-    return response.status(400).json({ error: err.message });
-  }
-});
+usersRouter.post('/', usersController.create);
 
 usersRouter.put('/', async (request, response) => {
+  const usersRepository = new UsersRepository();
+
   const { id, name, email, password, old_password } = request.body;
 
   const updateUser = new UpdateUserService();

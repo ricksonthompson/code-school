@@ -1,26 +1,12 @@
-import { injectable, inject } from 'tsyringe';
-
-import AppError from '@shared/errors/AppError';
-
 import User from '@modules/users/infra/typeorm/entities/User';
-import IUsersRepository from '../repositories/IUsersRepository';
+import UsersRepository from '../infra/typeorm/repositories/UsersRepository';
 
-type IResponse = Array<User>;
-
-
-@injectable()
 class ListUserService {
 
-  constructor(
-    @inject('UserRepository')
-    private usersRepository: IUsersRepository
-  ) {}
+  public async execute(): Promise<User[]> {
+    const usersRepository = new UsersRepository;
 
-  public async execute(id: string): Promise<User[]> {
-
-    const users = await this.usersRepository.findAll({
-      except_user_id: id,
-    })
+    const users = await usersRepository.findUsers();
 
     return users;
   }

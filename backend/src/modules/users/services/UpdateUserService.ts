@@ -2,11 +2,11 @@ import { compare, hash } from 'bcryptjs';
 
 import AppError from '@shared/errors/AppError';
 
-import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
+import IUsersRepository from '../repositories/IUsersRepository';
 import User from '../infra/typeorm/entities/User';
 
 interface IRequest {
-  user_id: string;
+  user_id: number;
   name: string;
   email: string;
   password?: string;
@@ -15,10 +15,13 @@ interface IRequest {
 
 class UpdateUserService {
 
-  public async execute({user_id, name, email, password, old_password}: IRequest): Promise<User | undefined> {
-    const usersRepository = new UsersRepository();
+  constructor(
+    private usersRepository : IUsersRepository,
+  ){}
 
-    const user = await usersRepository.findById(user_id);
+  public async execute({user_id, name, email, password, old_password}: IRequest): Promise<User | undefined> {
+
+    const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
       throw new AppError('User not found!');
@@ -27,7 +30,7 @@ class UpdateUserService {
     user.name = name;
     user.email = email;
 
-    const checkUserExists = await usersRepository.findByEmail(email);
+    const checkUserExists = await this.usersRepository.findByEmail(email);
 
     if (checkUserExists) {
       throw new AppError('Email address already used.');
@@ -45,7 +48,7 @@ class UpdateUserService {
       }
       user.password = await hash(password, 8);
     }
-    return await usersRepository.save(user);
+    return await this.usersRepository.save(user);
   }
 }
 

@@ -1,12 +1,15 @@
 import User from '@modules/users/infra/typeorm/entities/User';
-import UsersRepository from '../infra/typeorm/repositories/UsersRepository';
+import IUsersRepository from '../repositories/IUsersRepository';
 
 class ListUserService {
 
-  public async execute(): Promise<User[]> {
-    const usersRepository = new UsersRepository;
+  constructor(
+    private usersRepository : IUsersRepository,
+  ){}
 
-    const users = await usersRepository.findUsers();
+  public async execute(): Promise<User[]> {
+
+    const users = await this.usersRepository.findUsers();
 
     return users;
   }

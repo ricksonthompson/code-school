@@ -4,11 +4,14 @@ import CreateUserService from '@modules/users/services/CreateUserService';
 import UpdateUserService from '@modules/users/services/UpdateUserService';
 import DeleteUserService from '@modules/users/services/DeleteUserService';
 import ListUserService from '@modules/users/services/ListUsersService';
+import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
+
+const usersRepository = new UsersRepository();
 
 export default class UsersController {
   public async show(request: Request, response: Response): Promise<Response> {
 
-    const ListUser = new ListUserService();
+    const ListUser = new ListUserService(usersRepository);
 
     const users = await ListUser.execute();
     return response.json(users);
@@ -18,7 +21,7 @@ export default class UsersController {
 
     const { name, email, password } = request.body;
 
-    const createUser = new CreateUserService();
+    const createUser = new CreateUserService(usersRepository);
 
     const user = await createUser.execute({
       name,
@@ -42,7 +45,7 @@ public async update(request: Request, response: Response): Promise<Response> {
 
   const { user_id, name, email, password, old_password } = request.body;
 
-  const updateUser = new UpdateUserService();
+  const updateUser = new UpdateUserService(usersRepository);
 
   const user = await updateUser.execute({
     user_id,
@@ -58,9 +61,11 @@ public async update(request: Request, response: Response): Promise<Response> {
 public async delete(request: Request, response: Response): Promise<Response> {
   const { id } = request.params;
 
-  const deleteUser = new DeleteUserService();
+  const id_user = parseInt(id);
 
-  await deleteUser.execute(id);
+  const deleteUser = new DeleteUserService(usersRepository);
+
+  await deleteUser.execute(id_user);
 
   return response.status(204).send();
 }

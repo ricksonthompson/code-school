@@ -1,15 +1,18 @@
 import { Request, Response } from 'express';
 
+import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
+
 import CreateUserService from '@modules/users/services/CreateUserService';
 import UpdateUserService from '@modules/users/services/UpdateUserService';
 import DeleteUserService from '@modules/users/services/DeleteUserService';
 import ListUserService from '@modules/users/services/ListUsersService';
-import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
 
 const usersRepository = new UsersRepository();
 
 export default class UsersController {
+
   public async show(request: Request, response: Response): Promise<Response> {
+    const usersRepository = new UsersRepository();
 
     const ListUser = new ListUserService(usersRepository);
 
@@ -39,7 +42,7 @@ export default class UsersController {
 
     return response.json(userWithoutPassword);
 
-}
+} 
 
 public async update(request: Request, response: Response): Promise<Response> {
 

@@ -1,10 +1,7 @@
 import { Request, Response } from 'express';
+import { container } from 'tsyringe';
 
 import AuthenticateUserService from '@modules/users/services/AuthenticateUserService';
-
-import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
-
-const usersRepository = new UsersRepository();
 
 export default class UsersController {
 
@@ -12,7 +9,7 @@ export default class UsersController {
 
   const { email, password } = request.body;
 
-  const authenticateUser = new AuthenticateUserService(usersRepository);
+  const authenticateUser = container.resolve(AuthenticateUserService);
 
   const { user, token } = await authenticateUser.execute({
     email,

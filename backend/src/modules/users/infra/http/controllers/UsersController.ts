@@ -1,20 +1,16 @@
 import { Request, Response } from 'express';
-
-import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
+import { container } from 'tsyringe';
 
 import CreateUserService from '@modules/users/services/CreateUserService';
 import UpdateUserService from '@modules/users/services/UpdateUserService';
 import DeleteUserService from '@modules/users/services/DeleteUserService';
 import ListUserService from '@modules/users/services/ListUsersService';
 
-const usersRepository = new UsersRepository();
-
 export default class UsersController {
 
   public async show(request: Request, response: Response): Promise<Response> {
-    const usersRepository = new UsersRepository();
 
-    const ListUser = new ListUserService(usersRepository);
+    const ListUser = container.resolve(ListUserService);
 
     const users = await ListUser.execute();
     return response.json(users);
@@ -24,7 +20,7 @@ export default class UsersController {
 
     const { name, email, password } = request.body;
 
-    const createUser = new CreateUserService(usersRepository);
+    const createUser = container.resolve(CreateUserService);
 
     const user = await createUser.execute({
       name,
@@ -42,13 +38,13 @@ export default class UsersController {
 
     return response.json(userWithoutPassword);
 
-} 
+}
 
 public async update(request: Request, response: Response): Promise<Response> {
 
   const { user_id, name, email, password, old_password } = request.body;
 
-  const updateUser = new UpdateUserService(usersRepository);
+  const updateUser = container.resolve(UpdateUserService);
 
   const user = await updateUser.execute({
     user_id,
@@ -66,7 +62,7 @@ public async delete(request: Request, response: Response): Promise<Response> {
 
   const id_user = parseInt(id);
 
-  const deleteUser = new DeleteUserService(usersRepository);
+  const deleteUser = container.resolve(DeleteUserService);
 
   await deleteUser.execute(id_user);
 

@@ -1,4 +1,5 @@
 import { compare, hash } from 'bcryptjs';
+import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 
@@ -13,9 +14,11 @@ interface IRequest {
   old_password?: string;
 }
 
+@injectable()
 class UpdateUserService {
 
   constructor(
+    @inject('UsersRepository')
     private usersRepository : IUsersRepository,
   ){}
 

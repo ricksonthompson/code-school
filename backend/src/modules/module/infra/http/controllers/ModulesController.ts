@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { container } from 'tsyringe';
 
 import CreateModuleService from '@modules/module/services/CreateModuleService';
 import DeleteModuleService from '@modules/module/services/DeleteModuleService';
@@ -10,7 +11,7 @@ export default class ModulesController {
     try {
       const { title, description } = request.body;
 
-      const CreateModule = new CreateModuleService();
+      const CreateModule = container.resolve(CreateModuleService);
 
       const module = await CreateModule.execute({
         title,
@@ -26,7 +27,7 @@ export default class ModulesController {
   public async update(request: Request, response: Response): Promise<Response> {
     const { id, title, description } = request.body;
 
-    const UpdateModule = new UpdateModuleService();
+    const UpdateModule = container.resolve(UpdateModuleService);
 
     const module = await UpdateModule.execute({
       id,
@@ -40,7 +41,7 @@ export default class ModulesController {
   public async delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
 
-    const DeleteModule = new DeleteModuleService();
+    const DeleteModule = container.resolve(DeleteModuleService);
 
     await DeleteModule.execute(id);
 
@@ -48,7 +49,7 @@ export default class ModulesController {
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
-    const listModule = new ListModuleService();
+    const listModule = container.resolve(ListModuleService);
 
     const modules = await listModule.execute();
 

@@ -1,19 +1,26 @@
+import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 
 import Module from '@modules/module/infra/typeorm/entities/Module';
-import ModulesRepository from '@modules/module/infra/typeorm/repositories/ModulesRepository';
+import IModulesRepository from '@modules/module/repositories/IModulesRepository';
 
+@injectable()
 class DeleteModuleService {
-  public async execute(id: string) :Promise<void> {
-    const modulesRepository = new ModulesRepository();
 
-    const module = await modulesRepository.findById(id);
+  constructor(
+    @inject('ModulesRepository')
+    private modulesRepository : IModulesRepository,
+  ){}
+
+  public async execute(id: string) :Promise<void> {
+
+    const module = await this.modulesRepository.findById(id);
 
     if (!module) {
       throw new AppError('Module does not exists!');
     }
 
-    await modulesRepository.remove(module);
+    await this.modulesRepository.remove(module);
   }
 }
 

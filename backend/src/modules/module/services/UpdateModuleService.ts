@@ -1,5 +1,7 @@
+import { injectable, inject } from 'tsyringe';
+
 import Module from '@modules/module/infra/typeorm/entities/Module';
-import ModulesRepository from '@modules/module/infra/typeorm/repositories/ModulesRepository';
+import IModulesRepository from '@modules/module/repositories/IModulesRepository';
 
 interface IRequest {
   id: string;
@@ -7,16 +9,21 @@ interface IRequest {
   description: string;
 }
 
+@injectable()
 class UpdateModuleService {
-  public async execute({ id, title, description }: IRequest): Promise<Module | undefined> {
-    const modulesRepository = new ModulesRepository();
 
-    const module = await modulesRepository.findById(id);
+  constructor(
+    @inject('ModulesRepository')
+    private modulesRepository : IModulesRepository,
+  ){}
+
+  public async execute({ id, title, description }: IRequest): Promise<Module | undefined> {
+    const module = await this.modulesRepository.findById(id);
 
     module.title = title;
     module.description = description;
 
-    await modulesRepository.update(module);
+    await this.modulesRepository.update(module);
 
     return module;
   }

@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { container } from 'tsyringe';
 
 import CreateLessonService from '@modules/lessons/services/CreateLessonService';
 import DeleteLessonService from '@modules/lessons/services/DeleteLessonService';
@@ -9,7 +10,7 @@ export default class ModulesController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { title, description, link, module_id } = request.body;
 
-    const CreateLesson = new CreateLessonService();
+    const CreateLesson = container.resolve(CreateLessonService);
 
     const lesson = await CreateLesson.execute({
       title,
@@ -24,7 +25,7 @@ export default class ModulesController {
   public async update(request: Request, response: Response): Promise<Response> {
     const { id, title, description, link, module_id } = request.body;
 
-    const UpdateLesson = new UpdateLessonService();
+    const UpdateLesson = container.resolve(UpdateLessonService);
 
     const lesson = await UpdateLesson.execute({
       id,
@@ -40,15 +41,17 @@ export default class ModulesController {
   public async delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
 
-    const DeleteLesson = new DeleteLessonService();
+    const DeleteLesson = container.resolve(DeleteLessonService);
 
-    await DeleteLesson.execute(id)
+    const user_id = parseInt(id);
+
+    await DeleteLesson.execute(user_id)
 
     return response.status(204).send();
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
-    const lessonsRepository = new ListLessonService();
+    const lessonsRepository = container.resolve(ListLessonService);
 
     const lessons = await lessonsRepository.execute();
 

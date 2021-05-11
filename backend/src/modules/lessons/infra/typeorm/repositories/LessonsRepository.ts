@@ -12,7 +12,7 @@ class LessonsRepository implements ILessonsRepository {
     this.ormRepository = getRepository(Lesson);
   }
 
-  public async findById(id: string): Promise<Lesson | undefined> {
+  public async findById(id: number): Promise<Lesson | undefined> {
     const findLesson = await this.ormRepository.findOne(id);
 
     return findLesson;

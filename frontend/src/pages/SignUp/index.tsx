@@ -1,18 +1,23 @@
 import React, { useState, FormEvent } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
-import { useAuth } from '../../hooks/auth';
+import api from '../../services/api';
 
 import logoImg from '../../assets/codeschool-logo.png';
 
-import { Container, ContainerLogin, ContainerInfo, Title, LinkRegister, Form, Error } from './styles';
+import { Container, ContainerLogin, ContainerInfo, Title, Form, Error } from './styles';
 
-const SignIn: React.FC = () => {
+interface ICreateUser {
+  name: string;
+  email: string;
+  password: string;
+}
+
+const SignUp: React.FC = () => {
+  const [inputName, setInputName] = useState('');
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
   const [inputError, setInputError] = useState('');
-
-  const { signIn } = useAuth();
 
   const history = useHistory();
 
@@ -22,26 +27,31 @@ const SignIn: React.FC = () => {
 
     e.preventDefault();
 
-    if (!inputEmail) {
-      setInputError('Digite o autor/nome do repositório');
+    if (!inputEmail || !inputName || inputPassword) {
+      setInputError('Preencha todos os campos.');
       return;
     }
 
       try {
-        await signIn({
+
+        await api.post('users', {
+          name: inputName,
           email: inputEmail,
           password: inputPassword,
         });
 
+        setInputName('');
         setInputEmail('');
         setInputPassword('');
         setInputError('');
 
-        history.push('/modules');
+        alert('Cadastro realizado com sucesso!');
+
+        history.push('/signin');
 
       } catch (err) {
         if (err) {
-          setInputError('Dados inválidos. Cheque as suas credenciais!');
+          setInputError('Houve um erro no cadastro!');
         }
       }
 
@@ -51,11 +61,19 @@ const SignIn: React.FC = () => {
       <Container>
         <ContainerInfo>
           <img src={logoImg} alt="CodeSchool" />
-          <Title>Faça seu login<br /> na plataforma</Title>
+          <Title>Desenvolva suas<br /> habilidades como dev</Title>
         </ContainerInfo>
 
       <ContainerLogin>
         <Form hasError={!!inputError} onSubmit={handleSubmit}>
+        <input
+          name="name"
+          type="name"
+          value={inputEmail}
+          onChange={e => setInputName(e.target.value)}
+          placeholder="Name"
+        />
+
         <input
           name="email"
           type="E-mail"
@@ -63,6 +81,7 @@ const SignIn: React.FC = () => {
           onChange={e => setInputEmail(e.target.value)}
           placeholder="E-mail"
         />
+
         <input
           name="password"
           type="password"
@@ -70,12 +89,9 @@ const SignIn: React.FC = () => {
           onChange={e => setInputPassword(e.target.value)}
           placeholder="Senha"
         />
-        <button type="submit">Acessar</button>
+        <button type="submit">Cadastrar</button>
 
-        <LinkRegister>
-          Não tem conta?
-         <a href="singup">Registre-se</a>
-        </LinkRegister>
+        <Link to="singin">Voltar para login</Link>
       </Form>
 
       {inputError && <Error>{inputError}</Error>}
@@ -86,4 +102,4 @@ const SignIn: React.FC = () => {
     );
   };
 
-  export default SignIn;
+  export default SignUp;

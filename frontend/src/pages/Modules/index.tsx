@@ -50,6 +50,7 @@ const Modules: React.FC = () => {
           </Link>
           <span> Curso de Terminal Linux</span>
         </Course>
+
         <Course>
           <Link
             to={{
@@ -70,13 +71,9 @@ const Modules: React.FC = () => {
           </Link>
           <span> Curso de Trello</span>
         </Course>
-        <Course>
-          <Thumbnail id="thumbnail">
-            <p> em breve</p>
-          </Thumbnail>
-          <span> Curso de CSS</span>
-        </Course>
+        
       </CourseList>
+
     </Container>
   );
 };

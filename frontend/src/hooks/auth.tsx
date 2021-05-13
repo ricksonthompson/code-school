@@ -38,8 +38,6 @@ const AuthProvider: React.FC = ({ children }) => {
       password,
     });
 
-    console.debug(response)
-
     const { token, user } = response.data;
 
     localStorage.setItem('@CodeSchool:token', token);

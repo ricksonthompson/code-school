@@ -27,9 +27,8 @@ export const FlexboxLeft = styled.div`
   }
 
   p {
-    font-family: 'Anton', Helvetica, serif;
+    font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 32px;
-    text-transform: uppercase;
   }
 
   iframe {

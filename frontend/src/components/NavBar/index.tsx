@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
+import { useAuth } from '../../hooks/auth';
+
 import logoImg from '../../assets/codeschool-logo.png';
 
 import { Background, Container, MenuIcon, MenuBar } from './styles';
@@ -39,17 +41,17 @@ const NavBar: React.FC = () => {
         </MenuIcon>
         <ul>
           <li>
-            <Link to="/cursos" onClick={(): void => handleNewTab(2)}>
+            <Link to="/modules" onClick={(): void => handleNewTab(2)}>
               Módulos
             </Link>
           </li>
           <li>
-            <Link to="/portfolio" onClick={(): void => handleNewTab(3)}>
+            <Link to="/lessons" onClick={(): void => handleNewTab(3)}>
               Aulas
             </Link>
           </li>
           <li>
-            <Link to="/contato" onClick={(): void => handleNewTab(4)}>
+          <Link to="/signin">
               Sair
             </Link>
           </li>

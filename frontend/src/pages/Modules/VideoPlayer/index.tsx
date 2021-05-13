@@ -125,10 +125,6 @@ const VideoPlayer: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Download>
-                    <span>Download</span>
-                    <IoMdDownload color="#D4AE8B" size={20} />
-                  </Download>
                 </a>
               )}
             </UpperTitle>

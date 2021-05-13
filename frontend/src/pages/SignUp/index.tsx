@@ -7,12 +7,6 @@ import logoImg from '../../assets/codeschool-logo.png';
 
 import { Container, ContainerLogin, ContainerInfo, Title, Form, Error } from './styles';
 
-interface ICreateUser {
-  name: string;
-  email: string;
-  password: string;
-}
-
 const SignUp: React.FC = () => {
   const [inputName, setInputName] = useState('');
   const [inputEmail, setInputEmail] = useState('');
@@ -32,74 +26,74 @@ const SignUp: React.FC = () => {
       return;
     }
 
-      try {
+    try {
 
-        await api.post('users', {
-          name: inputName,
-          email: inputEmail,
-          password: inputPassword,
-        });
+      await api.post('users', {
+        name: inputName,
+        email: inputEmail,
+        password: inputPassword,
+      });
 
-        setInputName('');
-        setInputEmail('');
-        setInputPassword('');
-        setInputError('');
+      setInputName('');
+      setInputEmail('');
+      setInputPassword('');
+      setInputError('');
 
-        alert('Cadastro realizado com sucesso!');
+      alert('Cadastro realizado com sucesso!');
 
-        history.push('/signin');
+      history.push('/');
 
-      } catch (err) {
-        if (err) {
-          setInputError('Houve um erro no cadastro!');
-        }
+    } catch (err) {
+      if (err) {
+        setInputError('Houve um erro no cadastro!');
       }
+    }
 
   };
 
-    return (
-      <Container>
-        <ContainerInfo>
-          <img src={logoImg} alt="CodeSchool" />
-          <Title>Desenvolva suas<br /> habilidades como dev</Title>
-        </ContainerInfo>
+  return (
+    <Container>
+      <ContainerInfo>
+        <img src={logoImg} alt="CodeSchool" />
+        <Title>Desenvolva suas<br /> habilidades como dev</Title>
+      </ContainerInfo>
 
       <ContainerLogin>
         <Form hasError={!!inputError} onSubmit={handleSubmit}>
-        <input
-          name="name"
-          type="Name"
-          value={inputName}
-          onChange={e => setInputName(e.target.value)}
-          placeholder="Name"
-        />
+          <input
+            name="name"
+            type="Name"
+            value={inputName}
+            onChange={e => setInputName(e.target.value)}
+            placeholder="Name"
+          />
 
-        <input
-          name="email"
-          type="E-mail"
-          value={inputEmail}
-          onChange={e => setInputEmail(e.target.value)}
-          placeholder="E-mail"
-        />
+          <input
+            name="email"
+            type="E-mail"
+            value={inputEmail}
+            onChange={e => setInputEmail(e.target.value)}
+            placeholder="E-mail"
+          />
 
-        <input
-          name="password"
-          type="password"
-          value={inputPassword}
-          onChange={e => setInputPassword(e.target.value)}
-          placeholder="Senha"
-        />
-        <button type="submit">Cadastrar</button>
+          <input
+            name="password"
+            type="password"
+            value={inputPassword}
+            onChange={e => setInputPassword(e.target.value)}
+            placeholder="Senha"
+          />
+          <button type="submit">Cadastrar</button>
 
-        <Link to="signin">Voltar para login</Link>
-      </Form>
+          <Link to="signin">Voltar para login</Link>
+        </Form>
 
-      {inputError && <Error>{inputError}</Error>}
+        {inputError && <Error>{inputError}</Error>}
 
       </ContainerLogin>
 
     </Container>
-    );
-  };
+  );
+};
 
-  export default SignUp;
+export default SignUp;

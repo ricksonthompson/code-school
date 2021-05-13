@@ -8,7 +8,7 @@ interface FormProps {
 
 export const Container = styled.div`
   display: flex;
-  align-items: row;
+  flex-direction: row-reverse;
   justify-content: center;
   margin-top: 20vh;
   margin-bottom: 20vh;

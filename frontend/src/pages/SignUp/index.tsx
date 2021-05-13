@@ -68,8 +68,8 @@ const SignUp: React.FC = () => {
         <Form hasError={!!inputError} onSubmit={handleSubmit}>
         <input
           name="name"
-          type="name"
-          value={inputEmail}
+          type="Name"
+          value={inputName}
           onChange={e => setInputName(e.target.value)}
           placeholder="Name"
         />
@@ -91,7 +91,7 @@ const SignUp: React.FC = () => {
         />
         <button type="submit">Cadastrar</button>
 
-        <Link to="singin">Voltar para login</Link>
+        <Link to="signin">Voltar para login</Link>
       </Form>
 
       {inputError && <Error>{inputError}</Error>}

@@ -74,7 +74,7 @@ const SignIn: React.FC = () => {
 
         <LinkRegister>
           Não tem conta?
-         <a href="singup">Registre-se</a>
+         <a href="signup">Registre-se</a>
         </LinkRegister>
       </Form>
 

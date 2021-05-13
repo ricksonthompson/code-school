@@ -1,4 +1,4 @@
-import styled, {css} from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { shade } from 'polished';
 
@@ -47,7 +47,6 @@ export const Thumbnail = styled.div`
   justify-content: center;
   border-radius: 5px;
   cursor: pointer;
-  background-color: #fff;
 
   img {
     width: 320px;
@@ -94,12 +93,10 @@ export const ContainerAddModules = styled.div`
   justify-content: center;
   flex-direction: column;
   width: 350px;
-  height: 290px;
   max-width: 480px;
   background: #f1f2ff;
   border-radius: 10px;
-  padding: 50px;
-  margin-bottom: 20px;
+  padding: 64px;
 
   h2 {
     color: #3a3a3a;
@@ -108,7 +105,7 @@ export const ContainerAddModules = styled.div`
 `;
 
 export const Form = styled.form<FormProps>`
-  margin-top: 10px;
+  margin-top: 40px;
   max-width: 1100px;
   display: flex;
   flex-direction: column;
@@ -161,4 +158,3 @@ export const Error = styled.span`
   color: #c53030;
   margin-top: 8px;
 `;
-

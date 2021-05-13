@@ -32,6 +32,7 @@ const Route: React.FC<RouteProps> = ({
               state: { from: location },
             }}
           />
+
         );
       }}
     />

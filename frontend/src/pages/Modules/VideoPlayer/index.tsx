@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
-import { IoMdDownload } from 'react-icons/io';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
 import {
   Container,
   Video,
   UpperTitle,
-  Download,
   FlexboxLeft,
   FlexboxRight,
   NextVideos,

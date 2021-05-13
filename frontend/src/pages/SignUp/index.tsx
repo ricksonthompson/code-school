@@ -21,7 +21,14 @@ const SignUp: React.FC = () => {
 
     e.preventDefault();
 
-    if (!inputEmail || !inputName || inputPassword) {
+    if (!inputName) {
+      setInputError('Preencha todos os campos.');
+      return;
+    } else if (!inputEmail) {
+        setInputError('Preencha todos os campos.');
+        return;
+    }
+    else if (!inputPassword) {
       setInputError('Preencha todos os campos.');
       return;
     }
@@ -41,7 +48,7 @@ const SignUp: React.FC = () => {
 
       alert('Cadastro realizado com sucesso!');
 
-      history.push('/');
+      history.push('/signin');
 
     } catch (err) {
       if (err) {

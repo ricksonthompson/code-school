@@ -1,7 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-
-import { useAuth } from '../../hooks/auth';
+import { Link, useHistory } from 'react-router-dom';
 
 import logoImg from '../../assets/codeschool-logo.png';
 
@@ -10,6 +8,8 @@ import { Background, Container, MenuIcon, MenuBar } from './styles';
 const NavBar: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [tab, setTab] = useState<number>(0);
+
+  const history = useHistory();
 
   const handleOpen = useCallback(
     (close = false): void => {
@@ -27,6 +27,13 @@ const NavBar: React.FC = () => {
     setOpen(false);
     setTab(n);
   }, []);
+
+ function handleLogout() {
+    localStorage.removeItem('@CodeSchool:token');
+    localStorage.removeItem('@CodeSchool:user');
+
+    return history.push('/')
+    };
 
   return (
     <Background>
@@ -51,9 +58,7 @@ const NavBar: React.FC = () => {
             </Link>
           </li>
           <li>
-          <Link to="/signin">
-              Sair
-            </Link>
+          <a href="/signin" onClick={handleLogout}>Sair</a>
           </li>
         </ul>
       </Container>
